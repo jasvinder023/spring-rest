@@ -106,13 +106,6 @@ public class UserInfo implements UserDetails {
 		this.email = email;
 	}
 
-//	public Collection<Role> getRoles() {
-//		return roles;
-//	}
-//
-//	public void setRoles(Collection<Role> roles) {
-//		this.roles = roles;
-//	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
