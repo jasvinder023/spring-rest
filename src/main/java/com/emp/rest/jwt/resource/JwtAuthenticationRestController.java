@@ -1,5 +1,6 @@
 package com.emp.rest.jwt.resource;
 
+import java.util.Collection;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -55,7 +58,8 @@ public class JwtAuthenticationRestController {
 		final UserDetails userDetails = userInfoDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 		
-		final String token = jwtTokenUtil.generateToken(authenticationRequest.getUsername());
+		//Collection<GrantedAuthority>au=(Collection<GrantedAuthority>) userDetails.getAuthorities();
+		final String token = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new JwtTokenResponse(token));
 	}
@@ -83,13 +87,17 @@ public class JwtAuthenticationRestController {
 	private void authenticate(String username, String password) {
 		Objects.requireNonNull(username);
 		Objects.requireNonNull(password);
-
+		Authentication auth=null;  
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			auth=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			System.out.println(auth);
 		} catch (DisabledException e) {
-			throw new AuthenticationException("USER_DISABLED", e);
+			throw new AuthenticationException("User is disabled. Please contact administrator", e);
 		} catch (BadCredentialsException e) {
-			throw new AuthenticationException("INVALID_CREDENTIALbbbbbbbbbbbbbS", e);
+			throw new AuthenticationException("Invalid Credentials. Please try again", e);
+		}
+		catch(Exception e) {
+			throw new AuthenticationException("Invalid Credentials. Please try again", e);
 		}
 	}
 }

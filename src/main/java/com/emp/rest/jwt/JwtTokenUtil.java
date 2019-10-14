@@ -2,13 +2,17 @@ package com.emp.rest.jwt;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -65,13 +69,16 @@ public class JwtTokenUtil implements Serializable {
 		return false;
 	}
 
-	public String generateToken(String userName) {
+	
+	public String generateToken(UserDetails userDetails ) {
 		Map<String, Object> claims = new HashMap<>();
-		List<String>rolesList=new ArrayList<>();
-	 rolesList.add("ADMIN");
-		 rolesList.add("MANAGER");
-		 claims.put("AUTHORITY", rolesList);
-		return doGenerateToken(claims, userName);
+	//	List<String>rolesList=new ArrayList<>();
+	 //rolesList.add("ADMIN");
+	//rolesList.add("MANAGER");
+			Set<String> au=AuthorityUtils.authorityListToSet(userDetails.getAuthorities());
+		
+		 claims.put("AUTHORITY", au);
+		return doGenerateToken(claims, userDetails.getUsername());
 	}
 
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
