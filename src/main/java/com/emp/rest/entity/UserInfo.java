@@ -110,6 +110,7 @@ public class UserInfo implements UserDetails {
 	}
 
 
+
 	public Collection<Role> getRoles() {
 		return roles;
 	}	
@@ -118,6 +119,7 @@ public class UserInfo implements UserDetails {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
 
 	
 	@Override

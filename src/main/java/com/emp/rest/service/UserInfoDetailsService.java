@@ -23,6 +23,7 @@ public class UserInfoDetailsService implements UserDetailsService {
 	UserInfoRepository userInfoRepository;
 
 
+
 //@Override
 //	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //		Optional<JwtUserDetails> findFirst = inMemoryUserList.stream()
@@ -36,6 +37,7 @@ public class UserInfoDetailsService implements UserDetailsService {
 //	}
 	// @Transactional(propagation=Propagation.REQUIRED, readOnly=true,
 	// noRollbackFor=Exception.class)
+
 
 
 	@Override
