@@ -41,6 +41,7 @@ public class UserInfo implements UserDetails {
 	@Column(name="enabled")
 	private Boolean enabled;
 
+	
 	@Column(name = "creation_date")
 	private Date creationDate;
 
