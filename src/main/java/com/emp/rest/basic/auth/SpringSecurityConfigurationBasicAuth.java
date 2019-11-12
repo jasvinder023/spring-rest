@@ -42,36 +42,11 @@ public class SpringSecurityConfigurationBasicAuth extends WebSecurityConfigurerA
 		.csrf().disable()	
 		.authorizeRequests()
 		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-		//.antMatchers(HttpMethod.POST,"/jpa/register/createUser").permitAll()
-		//.antMatchers(HttpMethod.GET,"/customer/list").permitAll()
 				.anyRequest().authenticated()
 				.and()
-			//.formLogin().and()
 			.httpBasic();
 	}
 	
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.cors().and()
-//		// starts authorizing configurations
-//		.authorizeRequests()
-//		// ignoring the guest's urls "
-//		.antMatchers("/account/register","/account/login","/logout").permitAll()
-//		// authenticate all remaining URLS
-//		.anyRequest().fullyAuthenticated().and()
-//      /* "/logout" will log the user out by invalidating the HTTP Session,
-//       * cleaning up any {link rememberMe()} authentication that was configured, */
-//		.logout()
-//        .permitAll()
-//		.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
-//        .and()
-//		// enabling the basic authentication
-//		.httpBasic().and()
-//		// configuring the session on the server
-//		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
-//		// disabling the CSRF - Cross Site Request Forgery
-//		.csrf().disable();
-//	}
-
 	
 	@Bean
 	public UserDetailsManager userDetailsManager() {

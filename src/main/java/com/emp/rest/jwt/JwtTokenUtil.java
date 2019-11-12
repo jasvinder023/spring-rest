@@ -72,6 +72,7 @@ public class JwtTokenUtil implements Serializable {
 	
 	public String generateToken(UserDetails userDetails ) {
 		Map<String, Object> claims = new HashMap<>();
+
 	//	List<String>rolesList=new ArrayList<>();
 	 //rolesList.add("ADMIN");
 	//rolesList.add("MANAGER");
@@ -79,6 +80,9 @@ public class JwtTokenUtil implements Serializable {
 		
 		 claims.put("AUTHORITY", au);
 		return doGenerateToken(claims, userDetails.getUsername());
+
+		//return doGenerateToken(claims, userName);
+
 	}
 
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
